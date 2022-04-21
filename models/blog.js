@@ -12,19 +12,42 @@ Blog.init({
   },
   author: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Please enter blog url'
+      }
+    }
   },
   url: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Please enter password'
+      },
+      isUrl: {
+        msg: 'Enter url in correct format (https://foo.com)'
+      }
+    }
   },
   title: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notNull: {
+        msg: 'Please enter blog title'
+      }
+    }
   },
   likes: {
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    defaultValue: 0,
+    validate: {
+      isInt: {
+        msg: 'Must be integer'
+      }
+    }
   }
 }, {
   sequelize,

@@ -1,8 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVtYWlsQGVtYWlsLmNvbSIsImlkIjo0LCJpYXQiOjE2NTA1NDI1ODh9.o_3xXdp71bF76waoDkP9DuJVB68cmhc3McxZdi7AWjo
 
 {
-    "author": "Robert C. Martin",
-    "url": "https://blog.cleancoder.com/uncle-bob/2018/12/17/FPvsOO-List-processing.html",
-    "title": "FP vs. OO List Processing",
+  "author": "Robert J. Martin",
+  "url": "https://blog.cleancoder.com/uncle-bob/2018/12/17/FPvsOO-List-processing.html",
+  "title": "FP vs. OO List Processing"
 }
