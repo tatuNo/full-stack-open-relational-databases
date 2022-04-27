@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
+
 const { User, Blog } = require('../models')
 
 router.get('/', async (req, res) => {
@@ -45,6 +46,33 @@ router.put('/:username', async (req, res) => {
   } else {
     throw new Error('User not found')
   }
+})
+
+router.get('/:id', async (req,res) => {
+  const where = {}
+
+  if(req.query.read) {
+    where.read = req.query.read === "true"
+  }
+
+  const user = await User.findByPk(req.params.id, {
+    include: [
+      {
+        model: Blog,
+        as: 'readings',
+        attributes: { exclude: ['userId'] },
+        through: {
+          attributes: ['read', 'id'],
+          where
+        }
+      }
+    ],
+    attributes: {
+      exclude: ['passwordHash']
+    },
+  })
+
+  user ? res.json(user) : res.status(404).end()
 })
 
 module.exports = router

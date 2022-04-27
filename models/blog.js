@@ -48,11 +48,22 @@ Blog.init({
         msg: 'Must be integer'
       }
     }
+  },
+  year: {
+    type: DataTypes.INTEGER,
+    validate: {
+      isInt: {
+        msg: 'Must be integer'
+      },
+      validateYear(value) {
+        const currentYear = new Date().getFullYear()
+        if(parseInt(value) > currentYear || parseInt(value) < 1991) throw new Error(`Year range 1991 - ${currentYear}`)
+      }
+    }
   }
 }, {
   sequelize,
   underscored: true,
-  timestamps: false,
   modelName: 'blog'
 })
 

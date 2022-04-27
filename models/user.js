@@ -36,6 +36,10 @@ User.init({
         msg: 'Please enter password'
       }
     }
+  },
+  disabled: {
+    type: DataTypes.BOOLEAN,
+    default: false
   }
 }, {
   hooks: {

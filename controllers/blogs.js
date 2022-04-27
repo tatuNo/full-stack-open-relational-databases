@@ -1,10 +1,8 @@
 const router = require('express').Router()
-const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
 
 const { Blog, User } = require('../models')
-const { blogFinder, tokenExtractor } = require('../util/middleware')
-const { SECRET } = require('../util/config')
+const { blogFinder, tokenExtractor, userFinder, sessionFinder } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
 	let where = {}
@@ -38,19 +36,14 @@ router.get('/', async (req, res) => {
   res.json(blogs)
 })
   
-router.post('/', tokenExtractor, async (req, res) => {
-	const decodedToken = jwt.verify(req.token, SECRET)
-  const user = await User.findByPk(decodedToken.id)
-
-  const blog = await Blog.create({ ...req.body, userId: user.id })
+router.post('/', tokenExtractor, userFinder, sessionFinder, async (req, res) => {
+  const blog = await Blog.create({ ...req.body, userId: req.user.id })
   res.json(blog)
 })
   
-router.delete('/:id', tokenExtractor, blogFinder, async (req, res) => {
-	const decodedToken = jwt.verify(req.token, SECRET)
-  const user = await User.findByPk(decodedToken.id)
+router.delete('/:id', tokenExtractor, userFinder, sessionFinder, blogFinder, async (req, res) => {
 
-	if(user.id === req.blog.userId) {
+	if(req.user.id === req.blog.userId) {
   	await req.blog.destroy()
   	res.status(204).end()
 	} else {

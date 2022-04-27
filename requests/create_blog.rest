@@ -1,9 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lQGVtYWlsLmNvbSIsImlkIjo1LCJpYXQiOjE2NTA1NDg3MDF9.HycwOmLuLspCU2nBbI0xNISSAl6a6pMG6o7EbO02-lA
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhdHVAZW1haWwuY29tIiwiaWQiOjIsImlhdCI6MTY1MTA1ODM0NH0._n7ac8Mzk1MyBzT_kJApvDer5lmcR3jmfkhjxdQP5RU
 
 {
-  "author": "Author one",
-  "url": "https://blog.cleancoder.com/uncle-bob/2018/12/17/FPvsOO-List-processing.html",
-  "title": "New title"
+  "author": "Yes",
+  "url": "https://nice.com",
+  "title": "Cool",
+  "year": 1232
 }
