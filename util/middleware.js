@@ -26,13 +26,13 @@ const sessionFinder = async (req, res, next) => {
 const blogFinder = async (req, res, next) => {
   req.blog = await Blog.findByPk(req.params.id)
 
-	if(!req.blog) throw new Error('Blog not found')
-	
-	next()
+  if(!req.blog) throw new Error('Blog not found')
+  
+  next()
 }
 
 const userFinder = async (req, res, next) => {
-	const decodedToken = jwt.verify(req.token, SECRET)
+  const decodedToken = jwt.verify(req.token, SECRET)
   req.user = await User.findByPk(decodedToken.id)
 
   if(!req.user) throw new Error('User not found')
@@ -55,11 +55,11 @@ const unknownEndpoint = (req, res) => {
   
 const errorHandler = (error, req, res, next) => {
 
-	if(error.name === 'SequelizeValidationError' || error.name === 'SequelizeDatabaseError') {
-		return res.status(400).send({ error: error.message })
-	} else if (error.message === 'Blog not found' || error.message === 'User not found') {
-		return res.status(404).send({ error: error.message })
-	} else if (error.name === 'JsonWebTokenError') {
+  if(error.name === 'SequelizeValidationError' || error.name === 'SequelizeDatabaseError') {
+    return res.status(400).send({ error: error.message })
+  } else if (error.message === 'Blog not found' || error.message === 'User not found') {
+    return res.status(404).send({ error: error.message })
+  } else if (error.name === 'JsonWebTokenError') {
     return res.status(401).json({ error: 'missing or invalid token' })
   } else if (error.name === 'SequelizeForeignKeyConstraintError') {
     return res.status(400).json({ error: error.message })
@@ -75,8 +75,8 @@ const errorHandler = (error, req, res, next) => {
 module.exports = {
   unknownEndpoint,
   errorHandler,
-	tokenExtractor,
-	blogFinder,
+  tokenExtractor,
+  blogFinder,
   userFinder,
   sessionFinder
 }
